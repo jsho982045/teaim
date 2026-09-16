@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Teaim — AI agent teams on your Grok Bot account</title>
+  <meta name="description" content="Done-for-you Grok Bot AI agent team setup for solo founders and small teams. Pilot from $297. You own the agents." />
+  <style>
+    :root {
+      --bg: #0b0f14;
+      --surface: #121820;
+      --surface2: #1a222d;
+      --border: #2a3544;
+      --text: #e8eef5;
+      --muted: #9aa8b8;
+      --accent: #5b8def;
+      --accent2: #3dd6c6;
+      --warn: #f0b429;
+      --radius: 12px;
+      --shadow: 0 12px 40px rgba(0,0,0,.35);
+      --max: 920px;
+      --font: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent2); }
+    a:hover { text-decoration: underline; }
+    .wrap { width: min(100% - 2rem, var(--max)); margin-inline: auto; }
+    header {
+      padding: 1.25rem 0;
+      border-bottom: 1px solid var(--border);
+      background: rgba(11,15,20,.9);
+      position: sticky;
+      top: 0;
+      backdrop-filter: blur(8px);
+      z-index: 10;
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .logo {
+      font-weight: 700;
+      letter-spacing: -.02em;
+      font-size: 1.05rem;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .logo span { color: var(--accent2); }
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      background: var(--accent);
+      color: #fff !important;
+      text-decoration: none !important;
+      font-weight: 600;
+      font-size: .9rem;
+      padding: .55rem 1rem;
+      border-radius: 999px;
+    }
+    .nav-cta:hover { filter: brightness(1.08); }
+    .hero {
+      padding: 3.5rem 0 2.5rem;
+    }
+    .eyebrow {
+      display: inline-block;
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      background: rgba(61,214,198,.1);
+      border: 1px solid rgba(61,214,198,.25);
+      padding: .35rem .7rem;
+      border-radius: 999px;
+      margin-bottom: 1.25rem;
+    }
+    h1 {
+      font-size: clamp(1.75rem, 4.5vw, 2.65rem);
+      line-height: 1.15;
+      letter-spacing: -.03em;
+      margin: 0 0 1rem;
+      max-width: 18ch;
+    }
+    .subhead {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 52ch;
+      margin: 0 0 1.75rem;
+    }
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .75rem;
+      margin-bottom: 1rem;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: .8rem 1.25rem;
+      border-radius: 999px;
+      font-weight: 650;
+      font-size: .95rem;
+      text-decoration: none !important;
+      border: 1px solid transparent;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff !important;
+    }
+    .btn-primary:hover { filter: brightness(1.08); }
+    .btn-secondary {
+      background: transparent;
+      color: var(--text) !important;
+      border-color: var(--border);
+    }
+    .btn-secondary:hover { border-color: var(--muted); }
+    .fine {
+      font-size: .8rem;
+      color: var(--muted);
+    }
+    .bullets {
+      list-style: none;
+      padding: 0;
+      margin: 2.5rem 0 0;
+      display: grid;
+      gap: .9rem;
+    }
+    .bullets li {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.1rem;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: .75rem;
+      align-items: start;
+    }
+    .bullets strong { color: var(--text); display: block; margin-bottom: .2rem; }
+    .bullets p { margin: 0; color: var(--muted); font-size: .92rem; }
+    .check {
+      width: 1.4rem; height: 1.4rem;
+      border-radius: 50%;
+      background: rgba(61,214,198,.15);
+      color: var(--accent2);
+      display: grid;
+      place-items: center;
+      font-size: .75rem;
+      font-weight: 700;
+      margin-top: .15rem;
+    }
+    section { padding: 2.5rem 0; }
+    section h2 {
+      font-size: 1.45rem;
+      letter-spacing: -.02em;
+      margin: 0 0 1.25rem;
+    }
+    .packages {
+      display: grid;
+      gap: 1rem;
+    }
+    @media (min-width: 720px) {
+      .packages { grid-template-columns: repeat(3, 1fr); align-items: stretch; }
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.35rem;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow);
+    }
+    .card.featured {
+      border-color: var(--accent);
+      background: linear-gradient(180deg, #152033 0%, var(--surface) 55%);
+    }
+    .card .tier {
+      font-size: .75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      color: var(--muted);
+      margin-bottom: .35rem;
+    }
+    .card.featured .tier { color: var(--accent); }
+    .card h3 {
+      margin: 0;
+      font-size: 1.2rem;
+    }
+    .price {
+      font-size: 2rem;
+      font-weight: 750;
+      letter-spacing: -.03em;
+      margin: .6rem 0 .25rem;
+    }
+    .price span { font-size: .9rem; font-weight: 500; color: var(--muted); }
+    .card ul {
+      margin: 1rem 0 1.25rem;
+      padding-left: 1.1rem;
+      color: var(--muted);
+      font-size: .9rem;
+      flex: 1;
+    }
+    .card li { margin-bottom: .4rem; }
+    .badge {
+      display: inline-block;
+      font-size: .7rem;
+      font-weight: 700;
+      background: var(--accent);
+      color: #fff;
+      padding: .2rem .5rem;
+      border-radius: 999px;
+      margin-left: .35rem;
+      vertical-align: middle;
+    }
+    .faq details {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: .9rem 1rem;
+      margin-bottom: .65rem;
+    }
+    .faq summary {
+      cursor: pointer;
+      font-weight: 650;
+      list-style: none;
+    }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary::before {
+      content: "+";
+      display: inline-block;
+      width: 1.2rem;
+      color: var(--accent2);
+      font-weight: 700;
+    }
+    .faq details[open] summary::before { content: "–"; }
+    .faq p {
+      margin: .65rem 0 0;
+      color: var(--muted);
+      font-size: .92rem;
+    }
+    .cta-band {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: calc(var(--radius) + 4px);
+      padding: 1.75rem;
+      text-align: center;
+    }
+    .cta-band h2 { margin-bottom: .5rem; }
+    .cta-band p { color: var(--muted); margin: 0 0 1.25rem; }
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 0 3rem;
+      color: var(--muted);
+      font-size: .82rem;
+    }
+    footer strong { color: var(--text); }
+
+    .access-box {
+      margin-top: 1.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.35rem;
+    }
+    .access-box h3 {
+      margin: 0 0 .35rem;
+      font-size: 1.05rem;
+    }
+    .access-box .lead {
+      margin: 0 0 .9rem;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .access-box ol {
+      margin: 0;
+      padding-left: 1.2rem;
+      color: var(--muted);
+      font-size: .92rem;
+    }
+    .access-box li { margin-bottom: .45rem; }
+    .access-box li strong { color: var(--text); }
+    .note {
+      margin-top: 1rem;
+      padding: .85rem 1rem;
+      border-left: 3px solid var(--warn);
+      background: rgba(240,180,41,.08);
+      color: var(--muted);
+      font-size: .85rem;
+      border-radius: 0 var(--radius) var(--radius) 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <a class="logo" href="#"><span>Teaim</span></a>
+      <a class="nav-cta" href="mailto:jackshomer98@gmail.com?subject=Teaim%20Pilot">Email Jack</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap hero">
+      <div class="eyebrow">Done-for-you · Your account · Pay before work</div>
+      <h1>Your idea. Your Grok Bot account. A working AI agent team.</h1>
+      <p class="subhead">
+        Teaim designs and installs a multi-agent team on <em>your</em> account
+        so everyday work — research, drafts, ops, follow-ups — runs with clear roles,
+        not another empty chat window.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="mailto:jackshomer98@gmail.com?subject=Teaim%20Pilot&amp;body=My%20%231%20time-sink%20workflow%3A%0A%0A">Start with Pilot ($297)</a>
+        <a class="btn btn-secondary" href="#packages">See packages</a>
+      </div>
+      <p class="fine">Primary CTA: email · Stripe LIVE payment links below.</p>
+
+      <ul class="bullets">
+        <li>
+          <span class="check" aria-hidden="true">✓</span>
+          <div>
+            <strong>Done-for-you setup</strong>
+            <p>Roles, prompts, runbooks, QA. You own everything on your Grok Bot account.</p>
+          </div>
+        </li>
+        <li>
+          <span class="check" aria-hidden="true">✓</span>
+          <div>
+            <strong>Built for operators</strong>
+            <p>Solo founders and small teams who need leverage this week — not a six-month platform project.</p>
+          </div>
+        </li>
+        <li>
+          <span class="check" aria-hidden="true">✓</span>
+          <div>
+            <strong>Clear packages · no password custody</strong>
+            <p>Pilot from $297. You paste or screenshare. Drafts only for outreach — you approve sends.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <section id="packages">
+      <div class="wrap">
+        <h2>Packages</h2>
+        <div class="packages">
+          <article class="card featured">
+            <div class="tier">Pilot <span class="badge">Start here</span></div>
+            <h3>One workflow</h3>
+            <div class="price">$297 <span>USD</span></div>
+            <ul>
+              <li>2–3 agents on your account</li>
+              <li>Discovery + tailored prompts</li>
+              <li>~3 business days after payment + Access Checklist 1–4</li>
+              <li>1 revision pass (7 days)</li>
+            </ul>
+            <a class="btn btn-primary" href="https://buy.stripe.com/eVq6oHg5s4b186j1dpcEw01">Choose Pilot</a>
+          </article>
+          <article class="card">
+            <div class="tier">Team Build</div>
+            <h3>Day-to-day bench</h3>
+            <div class="price">$997 <span>USD</span></div>
+            <ul>
+              <li>5–7 agents + role map</li>
+              <li>Voice guide + 2 runbooks</li>
+              <li>5–7 business days after payment + Access Checklist 1–4</li>
+              <li>Walkthrough + 2 revisions</li>
+            </ul>
+            <a class="btn btn-secondary" href="https://buy.stripe.com/8x2bJ19H422T5YbcW7cEw02">Choose Team Build</a>
+          </article>
+          <article class="card">
+            <div class="tier">Venture Squad</div>
+            <h3>Production pods</h3>
+            <div class="price">$2,997 <span>USD</span></div>
+            <ul>
+              <li>Up to 10 agents / pods</li>
+              <li>Priority start + 4 runbooks</li>
+              <li>7–10 business days after payment + Access Checklist 1–4</li>
+              <li>30-day async Q&amp;A</li>
+            </ul>
+            <a class="btn btn-secondary" href="https://buy.stripe.com/4gM00j9H49vldqD5tFcEw03">Choose Venture</a>
+          </article>
+        </div>
+
+        <div class="access-box" id="access-checklist">
+          <h3>Access Checklist 1–4</h3>
+          <p class="lead">Delivery clock starts after payment <em>and</em> these four items in writing — not payment alone. Full refund if you cancel in writing before they’re received and before build starts.</p>
+          <ol>
+            <li><strong>Account:</strong> Confirmation you own/control the Grok Bot (or xAI) account where agents will live</li>
+            <li><strong>Collaboration:</strong> How we’ll work (you paste prompts — preferred; or screenshare / shared doc). We never ask for your password</li>
+            <li><strong>Brand basics:</strong> Business name, one-liner, and website/social if you have them</li>
+            <li><strong>Primary workflow:</strong> The #1 workflow this package should fix first</li>
+          </ol>
+        </div>
+
+        <p class="note"><strong>Payment before work.</strong> Delivery starts after payment + Access Checklist 1–4. Full refund if you cancel in writing before Access Checklist 1–4 are received and before build starts; after that, fees are non-refundable except as required by law. Not included: custom code/Zapier, monthly managed ops, password custody, or guarantees of revenue/leads. US-facing v1.</p>
+        <p class="fine" style="margin-top:1rem">
+          Stripe checkout (LIVE):
+          <a id="stripe-link" href="https://buy.stripe.com/eVq6oHg5s4b186j1dpcEw01">Pilot Stripe checkout ($297)</a>
+        </p>
+      </div>
+    </section>
+
+    <section class="faq" id="faq">
+      <div class="wrap">
+        <h2>FAQ</h2>
+        <details>
+          <summary>Do I need a Grok Bot account?</summary>
+          <p>Yes. We build on your personal or work account. You keep ownership of the agents.</p>
+        </details>
+        <details>
+          <summary>Will you log into my accounts?</summary>
+          <p>Default no. You paste agent text or we screenshare while you click. We don’t take your passwords.</p>
+        </details>
+        <details>
+          <summary>Is this a subscription?</summary>
+          <p>Packages are one-time setup. Retainers only if we both agree later in writing.</p>
+        </details>
+        <details>
+          <summary>Can agents send email or DMs for me?</summary>
+          <p>They draft. You (a human) approve and send. Designed that way on purpose.</p>
+        </details>
+        <details>
+          <summary>I’m not technical — will this work?</summary>
+          <p>If you can describe your workflow and paste text into Grok Bot, you can run the team.</p>
+        </details>
+        <details>
+          <summary>Refunds?</summary>
+          <p>Payment before work. Full refund if you cancel in writing before Access Checklist 1–4 are received and before build starts. After Access Checklist 1–4 are received, fees are non-refundable except as required by law. Delivery starts after payment + Access Checklist 1–4. If we miss our start SLA due to our delay, we may offer a partial credit at our discretion.</p>
+        </details>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="cta-band">
+          <h2>Ready to automate one workflow this week?</h2>
+          <p>Email your #1 time-sink. We’ll confirm if Pilot is enough — or recommend Team Build / Venture Squad.</p>
+          <div class="cta-row" style="justify-content:center">
+            <a class="btn btn-primary" href="mailto:jackshomer98@gmail.com?subject=Teaim%20Pilot&amp;body=My%20%231%20time-sink%20workflow%3A%0A%0A">Email jackshomer98@gmail.com</a>
+            <a class="btn btn-secondary" href="https://buy.stripe.com/eVq6oHg5s4b186j1dpcEw01">Pay via Stripe ($297)</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p><strong>Teaim</strong> · Jack E. Shomer · US-facing service</p>
+      <p>AI outputs can be wrong — human review required for client-facing sends. Not legal, medical, or financial advice.</p>
+      <p><a href="mailto:jackshomer98@gmail.com">jackshomer98@gmail.com</a></p>
+    </div>
+  </footer>
+</body>
+</html>
